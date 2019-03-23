@@ -1,9 +1,9 @@
+import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 
 import * as firebase from 'firebase';
 
-import {Injectable} from '@angular/core';
 import * as fromApp from '../store/app.reducers';
 import * as AuthActions from '../auth/store/auth.actions';
 
@@ -51,7 +51,7 @@ export class AuthService {
   }
 
   logout() {
-    firebase.auth().signOut();
-    this.store.dispatch(new AuthActions.Signout());
+    firebase.auth().signOut()
+      .then(() => this.store.dispatch(new AuthActions.Signout()));
   }
 }

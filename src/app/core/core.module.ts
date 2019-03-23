@@ -32,4 +32,5 @@ import {LoggingInterceptor} from '../shared/logging.interceptor';
     {provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true}
   ]
 })
-export class CoreModule {}
+export class CoreModule {
+}

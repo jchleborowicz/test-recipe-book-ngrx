@@ -21,7 +21,7 @@ const initialState: State = {
   editedIngredientIndex: -1
 };
 
-export function shoppingListReducer(state, action: ShoppingListActions.ShoppingListActions) {
+export function shoppingListReducer(state, action: ShoppingListActions.ShoppingListActions): State {
   switch (action.type) {
     case ShoppingListActions.ADD_INGREDIENT:
       return {
@@ -34,25 +34,33 @@ export function shoppingListReducer(state, action: ShoppingListActions.ShoppingL
         ingredients: [...state.ingredients, ...action.payload]
       };
     case ShoppingListActions.UPDATE_INGREDIENT:
-      const ingredient: Ingredient = state.ingredients[action.payload.index];
+      const ingredient: Ingredient = state.ingredients[state.editedIngredientIndex];
       const updatedIngredient = {
         ...ingredient,
-        ...action.payload.ingredient
+        ...action.payload
       };
       const newIngredients = [...state.ingredients];
-      newIngredients[action.payload.index] = updatedIngredient;
+      newIngredients[state.editedIngredientIndex] = updatedIngredient;
 
       return {
         ...state,
         ingredients: newIngredients
       };
     case ShoppingListActions.DELETE_INGREDIENT:
-      const ingredients = state.ingredients.splice(action.payload, 1);
+      const ingredients = state.ingredients.splice(state.editedIngredientIndex, 1);
       return {
         ...state,
         ingredients: ingredients
       };
+    case ShoppingListActions.START_EDIT:
+      return {
+        ...state,
+        editedIngredient: {...state.ingredients[action.payload]},
+        editedIngredientIndex: action.payload
+      };
     default:
-      return {ingredients: initialState.ingredients};
+      return {
+        ...initialState
+      };
   }
 }

@@ -34,6 +34,38 @@ const initialState: State = {
 
 export function recipeReducer(state = initialState, action: RecipeActions.RecipeActions) {
   switch (action.type) {
+    case RecipeActions.SET_RECIPES:
+      return {
+        ...state,
+        recipes: [...action.payload]
+      };
+    case RecipeActions.ADD_RECIPE:
+      return {
+        ...state,
+        recipes: [...state.recipes, action.payload]
+      };
+    case RecipeActions.UPDATE_RECIPE:
+      const recipe = state.recipes[action.payload.index];
+      const updatedRecipe = {
+        ...recipe,
+        ...action.payload.updateRecipe
+      };
+
+      const insertedRecipes = [...state.recipes];
+      insertedRecipes[action.payload.index] = updatedRecipe;
+
+      return {
+        ...state,
+        recipes: insertedRecipes
+      };
+    case RecipeActions.DELETE_RECIPE:
+      const deletedRecipes = [...state.recipes];
+      deletedRecipes.splice(action.payload, 1);
+
+      return {
+        ...state,
+        recipes: deletedRecipes
+      };
     default:
       return state;
   }

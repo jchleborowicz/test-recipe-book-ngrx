@@ -14,7 +14,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {AuthEffects} from './auth/store/auth.effects';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {environment} from './../environments/environment';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [

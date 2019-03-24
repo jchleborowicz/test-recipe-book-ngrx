@@ -12,7 +12,7 @@ export interface State {
 }
 
 const initialState: State = {
-  recipes = [
+  recipes: [
     new Recipe(
       'Tasty Schnitzel',
       'A super-tasty Schnitzel - just awesome!',
